@@ -293,3 +293,25 @@ private[spark] class Client(
     }).getOrElse(Map.empty[String, String])
   }
 }
+
+object Client {
+  def main(args: Array[String]): Unit = {
+    val mainAppResource = args(0)
+    val mainClass = args(1)
+    val appArgs = args.drop(2)
+    val sparkConf = new SparkConf(true)
+    val submissionClient = new Client(
+      mainClass = mainClass,
+      sparkConf = sparkConf,
+      appArgs = appArgs,
+      mainAppResource = mainAppResource,
+      kubernetesClientProvider = new SubmissionKubernetesClientProviderImpl(sparkConf),
+      submittedDependencyManagerProvider = new SubmittedDependencyManagerProviderImpl(sparkConf),
+      remoteDependencyManagerProvider = new DownloadRemoteDependencyManagerProviderImpl(sparkConf),
+      driverPodKubernetesCredentialsMounterProvider =
+        new DriverPodKubernetesCredentialsMounterProviderImpl(sparkConf))
+    submissionClient.run()
+  }
+}
+
+
