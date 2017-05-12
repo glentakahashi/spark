@@ -143,7 +143,8 @@ public class TransportServer implements Closeable {
     if (bootstrap != null && bootstrap.config() != null && bootstrap.config().group() != null) {
       bootstrap.config().group().shutdownGracefully();
     }
-    if (bootstrap != null && bootstrap.config() != null && bootstrap.config().childGroup() != null) {
+    if (bootstrap != null && bootstrap.config() != null
+            && bootstrap.config().childGroup() != null) {
       bootstrap.config().childGroup().shutdownGracefully();
     }
     bootstrap = null;
