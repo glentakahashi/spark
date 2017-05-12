@@ -153,8 +153,8 @@
     <!-- the producer is used in tests -->
     <aws.kinesis.producer.version>0.10.2</aws.kinesis.producer.version>
     <!--  org.apache.httpcomponents/httpclient-->
-    <commons.httpclient.version>4.5.2</commons.httpclient.version>
-    <commons.httpcore.version>4.4.4</commons.httpcore.version>
+    <commons.httpclient.version>4.5.3</commons.httpclient.version>
+    <commons.httpcore.version>4.4.6</commons.httpcore.version>
     <!--  commons-httpclient/commons-httpclient-->
     <httpclient.classic.version>3.1</httpclient.classic.version>
     <commons.math3.version>3.4.1</commons.math3.version>
@@ -180,7 +180,7 @@
     <jodd.version>3.5.2</jodd.version>
     <jsr305.version>3.0.1</jsr305.version>
     <libthrift.version>0.9.3</libthrift.version>
-    <antlr4.version>4.6.0</antlr4.version>
+    <antlr4.version>4.7</antlr4.version>
     <jpam.version>1.1</jpam.version>
     <selenium.version>2.52.0</selenium.version>
     <paranamer.version>2.6</paranamer.version>
