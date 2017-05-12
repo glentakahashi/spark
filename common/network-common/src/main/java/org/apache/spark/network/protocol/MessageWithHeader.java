@@ -17,17 +17,15 @@
 
 package org.apache.spark.network.protocol;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.WritableByteChannel;
-import javax.annotation.Nullable;
-
 import com.google.common.base.Preconditions;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.FileRegion;
 import io.netty.util.AbstractReferenceCounted;
 import io.netty.util.ReferenceCountUtil;
-
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.WritableByteChannel;
+import javax.annotation.Nullable;
 import org.apache.spark.network.buffer.ManagedBuffer;
 
 /**
@@ -36,7 +34,6 @@ import org.apache.spark.network.buffer.ManagedBuffer;
  * The header must be a ByteBuf, while the body can be a ByteBuf or a FileRegion.
  */
 class MessageWithHeader extends AbstractReferenceCounted implements FileRegion {
-
   @Nullable private final ManagedBuffer managedBuffer;
   private final ByteBuf header;
   private final int headerLength;
@@ -95,6 +92,11 @@ class MessageWithHeader extends AbstractReferenceCounted implements FileRegion {
     return totalBytesTransferred;
   }
 
+  @Override
+  public long transferred() {
+    return totalBytesTransferred;
+  }
+
   /**
    * This code is more complicated than you would think because we might require multiple
    * transferTo invocations in order to transfer a single MessageWithHeader to avoid busy waiting.
@@ -125,6 +127,28 @@ class MessageWithHeader extends AbstractReferenceCounted implements FileRegion {
     totalBytesTransferred += writtenBody;
 
     return writtenHeader + writtenBody;
+  }
+
+  @Override
+  public FileRegion touch(Object msg) {
+    return this;
+  }
+
+  @Override
+  public FileRegion retain() {
+    super.retain();
+    return this;
+  }
+
+  @Override
+  public FileRegion retain(int increment) {
+    super.retain(increment);
+    return this;
+  }
+
+  @Override
+  public FileRegion touch() {
+    return this;
   }
 
   @Override
